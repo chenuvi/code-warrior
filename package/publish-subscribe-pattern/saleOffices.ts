@@ -1,7 +1,7 @@
 ﻿interface SaleOffices {
   clientList: any[];
-  listen: (any) => void;
-  trigger: () => void;
+  listen: (arg0: any) => void;
+  trigger(price: number, squareMeter: number): void;
 }
 const saleOffices: Partial<SaleOffices> = {}; // 定义售楼处
 

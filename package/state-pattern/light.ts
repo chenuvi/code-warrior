@@ -8,6 +8,7 @@ interface LightState {
   clickButton(): void;
 }
 class OffLightState implements LightState {
+  light: any;
   constructor(light) {
     this.light = light;
   }
@@ -17,6 +18,7 @@ class OffLightState implements LightState {
   }
 }
 class lowLightState implements LightState {
+  light: any;
   constructor(light) {
     this.light = light;
   }
@@ -26,6 +28,7 @@ class lowLightState implements LightState {
   }
 }
 class strongLightState implements LightState {
+  light: any;
   constructor(light) {
     this.light = light;
   }
@@ -43,7 +46,7 @@ class Light {
     this.currentState = this.offLightState;
   }
   setState(newState) {
-    this.currrentState = newState;
+    this.currentState = newState;
   }
   clickButton() {
     this.currentState.clickButton();
