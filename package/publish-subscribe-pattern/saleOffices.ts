@@ -1,18 +1,21 @@
 ﻿interface SaleOffices {
-  clientList: any[];
-  listen: (arg0: any) => void;
+  clientList: object;
+  listen: (key: string, fn: () => void) => void;
   trigger(price: number, squareMeter: number): void;
 }
 const saleOffices: Partial<SaleOffices> = {}; // 定义售楼处
 
-saleOffices.clientList = []; // 缓存列表，存放订阅者的回调函数
+saleOffices.clientList = {}; // 缓存列表，存放订阅者的回调函数
 
-saleOffices.listen = function (fn) {
-  // 增加订阅者
-  this.clientList.push(fn); // 订阅的消息添加进缓存列表
+saleOffices.listen = function (key, fn) {
+  if (!this.clientList[key]) {
+    this.clientList[key] = [];
+  }
+  this.clientList[key].push(fn);
 };
 
 saleOffices.trigger = function () {
+    const key = Array.prototype.shift.call(arguments)
   // 发布消息
   for (let i = 0, fn; (fn = this.clientList[i++]); ) {
     fn.apply(this, arguments); // arguments是发布消息时带上的参数
